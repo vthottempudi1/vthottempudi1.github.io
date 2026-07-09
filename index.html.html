@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Venu Thottempudi — AI for Science Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════
+   DESIGN TOKENS
+══════════════════════════════════════════ */
+:root {
+  --bg:       #08090f;
+  --bg2:      #0d1118;
+  --bg3:      #111827;
+  --border:   #1c2333;
+  --border2:  #263044;
+
+  --teal:     #00e5c0;   /* your existing hero accent — kept */
+  --blue:     #4f8ef7;   /* ML / neural */
+  --violet:   #a78bfa;   /* agentic / agents */
+  --orange:   #fb923c;   /* retrosynthesis */
+
+  --text:     #edf2f7;
+  --text2:    #8fa3bf;
+  --text3:    #3d5166;
+
+  --font-d: 'Space Grotesk', sans-serif;
+  --font-m: 'Space Mono', monospace;
+  --font-b: 'Inter', sans-serif;
+
+  --r:  8px;
+  --r2: 14px;
+  --r3: 22px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-b);
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ══════════════════════════════════════════
+   AMBIENT BACKGROUND — kept from your version
+   subtle radial glow top-right
+══════════════════════════════════════════ */
+body::before {
+  content: '';
+  position: fixed;
+  top: -20%;
+  right: -10%;
+  width: 680px;
+  height: 680px;
+  background: radial-gradient(ellipse, rgba(0,229,192,0.07) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -20%;
+  left: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(ellipse, rgba(79,142,247,0.05) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ══════════════════════════════════════════
+   NAV  — your existing style, polished
+══════════════════════════════════════════ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 56px;
+  height: 64px;
+  background: rgba(8,9,15,0.88);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: var(--font-d);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+.nav-logo .dot { color: var(--teal); }
+
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+.nav-links a {
+  color: var(--text2);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--teal); }
+
+.nav-badge {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12.5px;
+  color: var(--teal);
+  border: 1px solid rgba(0,229,192,0.3);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-family: var(--font-b);
+  font-weight: 500;
+}
+.nav-badge .dot-pulse {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--teal);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: .5; transform: scale(.8); }
+}
+
+/* ══════════════════════════════════════════
+   LAYOUT
+══════════════════════════════════════════ */
+.page-wrap {
+  position: relative;
+  z-index: 1;
+}
+
+section {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 100px 56px;
+}
+
+.sec-eyebrow {
+  font-family: var(--font-m);
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 14px;
+}
+
+h2.sec-title {
+  font-family: var(--font-d);
+  font-size: clamp(26px, 3.5vw, 38px);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--text);
+  margin-bottom: 14px;
+  letter-spacing: -.02em;
+}
+
+.sec-sub {
+  color: var(--text2);
+  font-size: 15.5px;
+  max-width: 580px;
+  line-height: 1.75;
+  margin-bottom: 52px;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* ══════════════════════════════════════════
+   HERO  — your headline, my molecule card
+══════════════════════════════════════════ */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: 64px;
+  max-width: 100%;
+  padding-left: 8vw;
+  padding-right: 8vw;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 72px;
+  align-items: center;
+  width: 100%;
+}
+
+/* status badge — your existing pill */
+.hero-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border2);
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 12.5px;
+  color: var(--text2);
+  margin-bottom: 28px;
+  backdrop-filter: blur(4px);
+}
+.hero-status .dot { width:7px;height:7px;border-radius:50%;background:var(--teal); }
+
+/* YOUR exact headline copy, preserved */
+.hero-h1 {
+  font-family: var(--font-d);
+  font-size: clamp(36px, 5.5vw, 64px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -.025em;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+.hero-h1 .grad {
+  background: linear-gradient(90deg, var(--teal) 0%, #60d4fa 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-desc {
+  color: var(--text2);
+  font-size: 16px;
+  line-height: 1.8;
+  max-width: 520px;
+  margin-bottom: 36px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 52px;
+}
+
+.btn-primary {
+  background: var(--teal);
+  color: #08090f;
+  padding: 13px 30px;
+  border-radius: var(--r);
+  font-family: var(--font-d);
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  transition: opacity .2s, transform .15s;
+}
+.btn-primary:hover { opacity:.88; transform: translateY(-1px); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text2);
+  padding: 13px 30px;
+  border-radius: var(--r);
+  border: 1px solid var(--border2);
+  font-family: var(--font-d);
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  transition: border-color .2s, color .2s;
+}
+.btn-ghost:hover { border-color: var(--teal); color: var(--teal); }
+
+/* YOUR stats row, exact labels preserved */
+.hero-stats {
+  display: flex;
+  gap: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+.stat-num {
+  font-family: var(--font-d);
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--teal);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-label {
+  font-size: 12px;
+  color: var(--text3);
+  letter-spacing: .04em;
+}
+
+/* Molecule card — right side */
+.mol-card {
+  position: relative;
+  background: var(--bg2);
+  border-radius: var(--r3);
+  overflow: hidden;
+  aspect-ratio: 1;
+  border: 1px solid var(--border);
+}
+.mol-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: var(--r3);
+  background: linear-gradient(135deg, rgba(0,229,192,.35) 0%, transparent 45%, rgba(79,142,247,.2) 100%);
+  z-index: 0;
+  pointer-events: none;
+}
+#mol-canvas { display: block; width:100%; height:100%; position:relative; z-index:1; }
+
+.mol-footer {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(8,9,15,.82);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid var(--border);
+  padding: 12px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 2;
+}
+.mol-name {
+  font-family: var(--font-m);
+  font-size: 11px;
+  color: var(--teal);
+}
+.mol-tag {
+  font-family: var(--font-m);
+  font-size: 10px;
+  color: var(--text3);
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 8px;
+}
+
+/* ══════════════════════════════════════════
+   ABOUT
+══════════════════════════════════════════ */
+#about { border-top: 1px solid var(--border); }
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.id-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+}
+.id-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+}
+.id-card.chem::after { background: var(--teal); }
+.id-card.eng::after  { background: var(--blue); }
+
+.id-icon { font-size: 26px; margin-bottom: 14px; }
+.id-card h3 {
+  font-family: var(--font-d);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.id-card p {
+  color: var(--text2);
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+.tags { display: flex; flex-wrap: wrap; gap: 7px; }
+.tag {
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-family: var(--font-m);
+  color: var(--text2);
+}
+
+/* skills column spanning both rows on right */
+.skills-panel {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.skills-title {
+  font-family: var(--font-m);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 4px;
+}
+.skill-row { }
+.skill-hd {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.skill-name { font-size:13px; font-weight:500; color:var(--text); font-family:var(--font-d); }
+.skill-pct  { font-family:var(--font-m); font-size:11px; color:var(--text3); }
+.skill-bar  { height:3px; background:var(--border); border-radius:2px; overflow:hidden; }
+.skill-fill { height:100%; border-radius:2px; width:0; transition: width 1.2s cubic-bezier(.16,1,.3,1); }
+.f-teal   { background: var(--teal); }
+.f-blue   { background: var(--blue); }
+.f-violet { background: var(--violet); }
+
+/* ══════════════════════════════════════════
+   PROJECTS
+══════════════════════════════════════════ */
+#projects { border-top: 1px solid var(--border); }
+
+.proj-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.proj-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  transition: border-color .25s, transform .2s;
+  position: relative;
+  overflow: hidden;
+}
+.proj-card:hover { border-color: var(--border2); transform: translateY(-3px); }
+.proj-card.wide { grid-column: span 2; }
+.proj-card.wide { background: linear-gradient(135deg, var(--bg2) 65%, rgba(0,229,192,.04)); }
+
+.p-status {
+  position: absolute;
+  top: 18px; right: 18px;
+  font-family: var(--font-m);
+  font-size: 9px;
+  padding: 3px 8px;
+  border-radius: 3px;
+  letter-spacing: .07em;
+}
+.s-live    { background: rgba(0,229,192,.12); color: var(--teal); }
+.s-build   { background: rgba(79,142,247,.12); color: var(--blue); }
+.s-planned { background: rgba(74,101,128,.15); color: var(--text3); }
+
+.p-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-m);
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 3px;
+  margin-bottom: 14px;
+  width: fit-content;
+}
+.b-teal   { background:rgba(0,229,192,.1);  color:var(--teal);   border:1px solid rgba(0,229,192,.2); }
+.b-blue   { background:rgba(79,142,247,.1); color:var(--blue);   border:1px solid rgba(79,142,247,.2); }
+.b-violet { background:rgba(167,139,250,.1);color:var(--violet); border:1px solid rgba(167,139,250,.2); }
+.b-orange { background:rgba(251,146,60,.1); color:var(--orange); border:1px solid rgba(251,146,60,.2); }
+
+.proj-card h3 {
+  font-family: var(--font-d);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+  line-height: 1.25;
+}
+.proj-card p {
+  color: var(--text2);
+  font-size: 13.5px;
+  line-height: 1.65;
+  flex: 1;
+  margin-bottom: 18px;
+}
+.p-stack { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:18px; }
+.p-tag {
+  font-family: var(--font-m);
+  font-size: 10px;
+  color: var(--text3);
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  padding: 3px 8px;
+  border-radius: 3px;
+}
+.p-links { display:flex; gap:14px; }
+.p-link {
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--text3);
+  font-family: var(--font-d);
+  transition: color .2s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.p-link:hover { color: var(--teal); }
+
+/* ══════════════════════════════════════════
+   EXPERIENCE
+══════════════════════════════════════════ */
+#experience { border-top: 1px solid var(--border); }
+
+.exp-list { display: flex; flex-direction: column; gap: 2px; }
+
+.exp-item {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 32px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: start;
+}
+.exp-item:last-child { border-bottom: none; }
+
+.exp-year {
+  font-family: var(--font-m);
+  font-size: 11px;
+  color: var(--text3);
+  letter-spacing: .06em;
+  padding-top: 2px;
+}
+.exp-role {
+  font-family: var(--font-d);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.exp-org {
+  font-size: 13px;
+  color: var(--teal);
+  font-family: var(--font-m);
+  margin-bottom: 10px;
+}
+.exp-desc {
+  font-size: 14px;
+  color: var(--text2);
+  line-height: 1.7;
+}
+
+/* ══════════════════════════════════════════
+   TECH STACK
+══════════════════════════════════════════ */
+#skills { border-top: 1px solid var(--border); }
+
+.stack-rows { display: flex; flex-direction: column; gap: 12px; }
+
+.stack-row {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 18px 26px;
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 20px;
+  align-items: center;
+}
+.s-layer {
+  font-family: var(--font-m);
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text3);
+}
+.s-items { display:flex; flex-wrap:wrap; gap:8px; }
+.s-item {
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-size: 12.5px;
+  color: var(--text2);
+  font-family: var(--font-d);
+  font-weight: 500;
+  transition: border-color .2s, color .2s;
+}
+.s-item:hover { border-color: var(--teal); color: var(--teal); }
+
+/* ══════════════════════════════════════════
+   TARGET ROLES
+══════════════════════════════════════════ */
+#roles-section { border-top: 1px solid var(--border); }
+
+.roles-grid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 16px;
+}
+.role-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 24px;
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  transition: border-color .2s;
+}
+.role-card:hover { border-color: var(--border2); }
+.role-icon {
+  width: 42px; height: 42px;
+  border-radius: var(--r);
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.role-card h4 { font-family:var(--font-d); font-size:14px; font-weight:700; color:var(--text); margin-bottom:3px; }
+.role-org { font-size:11px; color:var(--teal); font-family:var(--font-m); margin-bottom:7px; }
+.role-desc { font-size:13px; color:var(--text2); line-height:1.6; }
+
+/* ══════════════════════════════════════════
+   DEPLOYMENT BANNER
+══════════════════════════════════════════ */
+#deploy { border-top: 1px solid var(--border); }
+
+.deploy-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 40px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 48px;
+  align-items: center;
+}
+.deploy-domain {
+  font-family: var(--font-m);
+  font-size: 20px;
+  color: var(--teal);
+  margin-bottom: 10px;
+  letter-spacing: .04em;
+}
+.deploy-desc { color:var(--text2); font-size:14px; line-height:1.75; max-width:480px; }
+.infra-list { display:flex; flex-direction:column; gap:10px; min-width:210px; }
+.infra-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12.5px;
+  color: var(--text2);
+  font-family: var(--font-m);
+}
+.i-dot { width:5px;height:5px;border-radius:50%;background:var(--teal);flex-shrink:0; }
+
+/* ══════════════════════════════════════════
+   CONTACT
+══════════════════════════════════════════ */
+#contact { border-top: 1px solid var(--border); text-align: center; }
+
+.contact-box {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--r3);
+  padding: 64px 48px;
+  max-width: 660px;
+  margin: 0 auto;
+}
+.contact-box h2 {
+  font-family: var(--font-d);
+  font-size: clamp(26px,4vw,38px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -.02em;
+  margin-bottom: 14px;
+}
+.contact-box h2 span { color: var(--teal); }
+.contact-box p { color:var(--text2); font-size:15px; line-height:1.75; max-width:460px; margin:0 auto 34px; }
+.contact-links { display:flex; justify-content:center; gap:14px; flex-wrap:wrap; }
+.c-link {
+  display: flex; align-items: center; gap: 7px;
+  padding: 11px 22px;
+  border-radius: var(--r);
+  border: 1px solid var(--border2);
+  color: var(--text2);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: var(--font-d);
+  transition: border-color .2s, color .2s;
+}
+.c-link:hover { border-color: var(--teal); color: var(--teal); }
+
+/* ══════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════ */
+footer {
+  position: relative; z-index: 1;
+  border-top: 1px solid var(--border);
+  padding: 24px 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.f-copy { font-family:var(--font-m); font-size:11px; color:var(--text3); }
+.f-copy span { color:var(--teal); }
+.f-right { font-size:11px; color:var(--text3); }
+
+/* ══════════════════════════════════════════
+   SCROLL REVEAL
+══════════════════════════════════════════ */
+.reveal { opacity:0; transform:translateY(20px); transition:opacity .6s ease,transform .6s ease; }
+.reveal.visible { opacity:1; transform:none; }
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+@media (max-width: 960px) {
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  #hero { padding: 80px 24px 60px; }
+  .hero-grid { grid-template-columns: 1fr; }
+  .mol-card { display: none; }
+  section { padding: 72px 24px; }
+  .about-grid { grid-template-columns: 1fr; }
+  .skills-panel { grid-column: 1; grid-row: auto; }
+  .proj-grid { grid-template-columns: 1fr; }
+  .proj-card.wide { grid-column: span 1; }
+  .roles-grid { grid-template-columns: 1fr; }
+  .deploy-card { grid-template-columns: 1fr; }
+  .exp-item { grid-template-columns: 1fr; gap: 6px; }
+  footer { flex-direction: column; gap: 8px; text-align: center; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <a class="nav-logo" href="#hero">Venu Thottempudi</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-badge"><span class="dot-pulse"></span>Open to new opportunities</div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-status"><span class="dot"></span> Open to new opportunities</div>
+
+      <!-- YOUR EXACT HEADLINE — preserved -->
+      <h1 class="hero-h1">
+        Building <span class="grad">AI systems</span> that<br>
+        bridge deep science and<br>
+        production-grade engineering.
+      </h1>
+
+      <!-- YOUR EXACT DESC — preserved -->
+      <p class="hero-desc">
+        PhD in Chemistry with 12+ years of software engineering experience. I design and ship enterprise RAG platforms, multi-agent systems, and ML models — and I'm extending that foundation into chemistry, life sciences, biotech, drug discovery, and FDA regulatory intelligence copilots.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn-primary" href="#projects">View Projects</a>
+        <a class="btn-ghost" href="#contact">Get in Touch</a>
+      </div>
+
+      <!-- YOUR EXACT STATS — preserved -->
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">12+</div>
+          <div class="stat-label">Years in Software Engineering</div>
+        </div>
+        <div>
+          <div class="stat-num">PhD</div>
+          <div class="stat-label">Chemistry</div>
+        </div>
+        <div>
+          <div class="stat-num">2</div>
+          <div class="stat-label">Live Deployed Projects</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Animated molecule card (new) -->
+    <div class="mol-card">
+      <canvas id="mol-canvas"></canvas>
+      <div class="mol-footer">
+        <span class="mol-name">Aspirin · C₉H₈O₄</span>
+        <span class="mol-tag">GNN inference</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══ ABOUT ═══ -->
+<section id="about">
+  <div class="sec-eyebrow">// dual expertise</div>
+  <h2 class="sec-title">Where Chemistry Meets<br>Production AI</h2>
+  <p class="sec-sub">Most AI engineers understand algorithms. Most chemists understand molecules. Very few understand both at the production level — that's the gap this work fills.</p>
+
+  <div class="about-grid reveal">
+    <div class="id-card chem">
+      <div class="id-icon">⚗️</div>
+      <h3>Chemistry Domain Expert</h3>
+      <p>PhD-level understanding of organic synthesis, molecular structure–property relationships, reaction mechanisms, and spectral analysis. Every AI system here is evaluated through the lens of someone who actually ran reactions.</p>
+      <div class="tags">
+        <span class="tag">Organic Synthesis</span><span class="tag">Retrosynthesis</span>
+        <span class="tag">ADMET</span><span class="tag">NMR/MS</span>
+        <span class="tag">Reaction Mechanisms</span><span class="tag">Drug Discovery</span>
+      </div>
+    </div>
+
+    <div class="skills-panel">
+      <div class="skills-title">Competency Profile</div>
+      <div class="skill-row">
+        <div class="skill-hd"><span class="skill-name">Molecular ML / GNNs</span><span class="skill-pct">90%</span></div>
+        <div class="skill-bar"><div class="skill-fill f-teal" data-w="90%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-hd"><span class="skill-name">Agentic AI / LangGraph</span><span class="skill-pct">85%</span></div>
+        <div class="skill-bar"><div class="skill-fill f-blue" data-w="85%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-hd"><span class="skill-name">RAG Architecture</span><span class="skill-pct">88%</span></div>
+        <div class="skill-bar"><div class="skill-fill f-teal" data-w="88%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-hd"><span class="skill-name">AWS Cloud Architecture</span><span class="skill-pct">82%</span></div>
+        <div class="skill-bar"><div class="skill-fill f-blue" data-w="82%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-hd"><span class="skill-name">Chemistry Domain (PhD)</span><span class="skill-pct">95%</span></div>
+        <div class="skill-bar"><div class="skill-fill f-violet" data-w="95%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-hd"><span class="skill-name">Drug Discovery / ADMET</span><span class="skill-pct">80%</span></div>
+        <div class="skill-bar"><div class="skill-fill f-violet" data-w="80%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-hd"><span class="skill-name">Python / Production SWE</span><span class="skill-pct">92%</span></div>
+        <div class="skill-bar"><div class="skill-fill f-teal" data-w="92%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-hd"><span class="skill-name">MLOps / CI/CD</span><span class="skill-pct">75%</span></div>
+        <div class="skill-bar"><div class="skill-fill f-blue" data-w="75%"></div></div>
+      </div>
+    </div>
+
+    <div class="id-card eng">
+      <div class="id-icon">⚙️</div>
+      <h3>Production AI Architect</h3>
+      <p>12 years building and shipping software. LangGraph multi-agent systems, GNNs with PyTorch Geometric, RAG pipelines on Qdrant, served via FastAPI behind AWS ECS Fargate — not notebooks, not demos.</p>
+      <div class="tags">
+        <span class="tag">LangGraph</span><span class="tag">PyTorch Geometric</span>
+        <span class="tag">FastAPI</span><span class="tag">AWS ECS Fargate</span>
+        <span class="tag">Qdrant</span><span class="tag">Docker</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══ PROJECTS ═══ -->
+<section id="projects">
+  <div class="sec-eyebrow">// portfolio</div>
+  <h2 class="sec-title">AI4Science Projects</h2>
+  <p class="sec-sub">Four projects, two architecture families — each evaluated against published benchmarks, deployed to production on AWS.</p>
+
+  <div class="proj-grid reveal">
+
+    <!-- PROJECT 1: Enterprise RAG — DEPLOYED & LIVE -->
+    <div class="proj-card wide">
+      <span class="p-status s-live">● LIVE</span>
+      <div class="p-badge b-blue">🤖 Enterprise RAG · IT Operations</div>
+      <h3>Enterprise Advanced RAG — Kubernetes IT-Operations Copilot</h3>
+      <p>Production-deployed enterprise RAG system for Kubernetes IT operations. Hybrid retrieval with cross-encoder reranking, CRAG, HyDE, Self-RAG reflection, Text-to-SQL with human-in-the-loop approval, 9-layer guardrails, sqlglot safety validation, semantic caching, and admin observability — all in one production workflow. Auto/Manual experience modes with preset query library. Backend v0.1.6 live at api.aiscientificlabs.com.</p>
+      <div class="p-stack">
+        <span class="p-tag">Hybrid + Rerank</span><span class="p-tag">CRAG</span>
+        <span class="p-tag">HyDE</span><span class="p-tag">Self-RAG</span>
+        <span class="p-tag">Text-to-SQL + HITL</span><span class="p-tag">sqlglot Safety</span>
+        <span class="p-tag">9-Layer Guardrails</span><span class="p-tag">Qdrant</span>
+        <span class="p-tag">FastAPI</span><span class="p-tag">AWS ECS Fargate</span>
+      </div>
+      <div class="p-links">
+        <a class="p-link" href="https://api.aiscientificlabs.com" target="_blank">↗ Live Demo</a>
+        <a class="p-link" href="#">⊞ GitHub</a>
+        <a class="p-link" href="#">📄 Write-up</a>
+      </div>
+    </div>
+
+    <!-- PROJECT 2: SEIP -->
+    <div class="proj-card wide">
+      <span class="p-status s-live">● LIVE</span>
+      <div class="p-badge b-teal">⚗️ RAG · Evidence Synthesis</div>
+      <h3>Scientific Evidence Intelligence Platform</h3>
+      <p>Given a molecule (name, SMILES, InChIKey, or CAS), retrieves open-access literature from PubMed/PMC, OpenAlex, ChemRxiv, and CrossRef — synthesizes evidence across papers, flags contradictions between sources, and verifies every claim traces to a real citation. LangGraph orchestration with a Critic/Verifier node and CRAG retry loop. Deployed to AWS ECS Fargate behind HTTPS at aiscientificlabs.com.</p>
+      <div class="p-stack">
+        <span class="p-tag">LangGraph</span><span class="p-tag">Qdrant</span><span class="p-tag">FastAPI</span>
+        <span class="p-tag">PubMed API</span><span class="p-tag">OpenAlex</span><span class="p-tag">RDKit</span>
+        <span class="p-tag">AWS ECS Fargate</span><span class="p-tag">Streamlit</span>
+      </div>
+      <div class="p-links">
+        <a class="p-link" href="https://aiscientificlabs.com" target="_blank">↗ Live Demo</a>
+        <a class="p-link" href="#">⊞ GitHub</a>
+        <a class="p-link" href="#">📄 Write-up</a>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <span class="p-status s-build">◌ IN BUILD</span>
+      <div class="p-badge b-orange">🔁 Search · Planning</div>
+      <h3>Retrosynthesis Planner</h3>
+      <p>MCTS-based multi-step synthetic route planner using USPTO-50k reaction templates. Neural expansion policy ranks precursor candidates by plausibility. Evaluated on top-k exact match and round-trip accuracy against AiZynthFinder as prior art baseline.</p>
+      <div class="p-stack">
+        <span class="p-tag">PyTorch</span><span class="p-tag">RDKit</span>
+        <span class="p-tag">MCTS</span><span class="p-tag">USPTO-50k</span><span class="p-tag">AWS ECS</span>
+      </div>
+      <div class="p-links">
+        <a class="p-link" href="#">⊞ GitHub</a>
+        <a class="p-link" href="#">📄 Write-up</a>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <span class="p-status s-build">◌ IN BUILD</span>
+      <div class="p-badge b-blue">🧠 GNN · Property Prediction</div>
+      <h3>Molecular Property Prediction</h3>
+      <p>GNN from scratch using PyTorch Geometric on QM9/ESOL. Message-passing architecture learning from molecular graph topology. Benchmarked head-to-head against ChemBERTa fine-tuning on the same tasks.</p>
+      <div class="p-stack">
+        <span class="p-tag">PyTorch Geometric</span><span class="p-tag">GCNConv</span>
+        <span class="p-tag">QM9</span><span class="p-tag">MoleculeNet</span>
+      </div>
+      <div class="p-links">
+        <a class="p-link" href="#">⊞ GitHub</a>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <span class="p-status s-planned">○ PLANNED</span>
+      <div class="p-badge b-blue">💊 Drug Discovery</div>
+      <h3>Drug Discovery Copilot</h3>
+      <p>Second SEIP domain. Adds ClinicalTrials.gov, ChEMBL, and DrugBank. New metadata schema (target, clinical phase, MoA) plus a Decision Support Layer outputting citation-grounded advance/discard recommendations.</p>
+      <div class="p-stack">
+        <span class="p-tag">ChEMBL</span><span class="p-tag">ClinicalTrials.gov</span>
+        <span class="p-tag">DrugBank</span><span class="p-tag">LangGraph</span>
+      </div>
+      <div class="p-links">
+        <a class="p-link" href="#">📄 Spec</a>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <span class="p-status s-planned">○ PLANNED</span>
+      <div class="p-badge b-violet">🤖 Agentic AI</div>
+      <h3>Tool-Using Agent + GNN</h3>
+      <p>LangGraph agent that calls the GNN property predictor as a tool: decides which molecules to screen, calls the model, interprets results. Demonstrates the "agent orchestrates specialized ML models" production pattern.</p>
+      <div class="p-stack">
+        <span class="p-tag">LangGraph</span><span class="p-tag">Tool Use</span>
+        <span class="p-tag">PyTorch</span><span class="p-tag">FastAPI</span>
+      </div>
+      <div class="p-links">
+        <a class="p-link" href="#">📄 Spec</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══ EXPERIENCE ═══ -->
+<section id="experience">
+  <div class="sec-eyebrow">// background</div>
+  <h2 class="sec-title">Experience</h2>
+
+  <div class="exp-list reveal">
+    <div class="exp-item">
+      <div class="exp-year">2026 — Present</div>
+      <div>
+        <div class="exp-role">AI Solutions Architect — AI4Science</div>
+        <div class="exp-org">aiscientificlabs.com · Independent Portfolio</div>
+        <div class="exp-desc">Building production AI systems for chemistry, drug discovery, and regulatory intelligence. SEIP deployed on AWS ECS Fargate; Retrosynthesis Planner in active development. LangGraph, PyTorch Geometric, Qdrant, FastAPI.</div>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-year">2012 — 2026</div>
+      <div>
+        <div class="exp-role">Senior Software Engineer / AI Architect</div>
+        <div class="exp-org">12 Years Production Engineering</div>
+        <div class="exp-desc">Full-stack and backend software engineering across enterprise systems. Enterprise RAG for Kubernetes documentation (Qdrant, LangChain, FastAPI). ML model development including CNNs, GANs, and deep learning pipelines. AWS cloud architecture and deployment.</div>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-year">PhD</div>
+      <div>
+        <div class="exp-role">Doctor of Philosophy — Chemistry</div>
+        <div class="exp-org">Organic Synthesis · Spectroscopy · Structure-Property</div>
+        <div class="exp-desc">Deep expertise in organic synthesis, reaction mechanisms, molecular structure-property relationships, NMR/MS spectral analysis, and drug-like molecule characterization. The scientific foundation underlying all AI4Science work in this portfolio.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══ SKILLS / STACK ═══ -->
+<section id="skills">
+  <div class="sec-eyebrow">// tech stack</div>
+  <h2 class="sec-title">Production-Grade Tools</h2>
+  <p class="sec-sub">Every layer used in these deployed systems — chosen for production, not notebooks.</p>
+
+  <div class="stack-rows reveal">
+    <div class="stack-row">
+      <div class="s-layer">AI / ML</div>
+      <div class="s-items">
+        <span class="s-item">PyTorch</span><span class="s-item">PyTorch Geometric</span>
+        <span class="s-item">LangGraph</span><span class="s-item">LangChain</span>
+        <span class="s-item">ChemBERTa</span><span class="s-item">SciBERT</span>
+        <span class="s-item">Transformers (HF)</span>
+      </div>
+    </div>
+    <div class="stack-row">
+      <div class="s-layer">Chemistry</div>
+      <div class="s-items">
+        <span class="s-item">RDKit</span><span class="s-item">PubChem API</span>
+        <span class="s-item">PubMed / PMC</span><span class="s-item">OpenAlex</span>
+        <span class="s-item">ChemRxiv</span><span class="s-item">ChEMBL</span>
+        <span class="s-item">CrossRef</span><span class="s-item">USPTO-50k</span>
+      </div>
+    </div>
+    <div class="stack-row">
+      <div class="s-layer">Vector / Search</div>
+      <div class="s-items">
+        <span class="s-item">Qdrant</span><span class="s-item">BM25 Hybrid</span>
+        <span class="s-item">Cross-Encoder Reranker</span>
+        <span class="s-item">HyDE</span><span class="s-item">CRAG</span>
+      </div>
+    </div>
+    <div class="stack-row">
+      <div class="s-layer">Backend / API</div>
+      <div class="s-items">
+        <span class="s-item">Python</span><span class="s-item">FastAPI</span>
+        <span class="s-item">Streamlit</span><span class="s-item">Pydantic</span>
+        <span class="s-item">Docker</span>
+      </div>
+    </div>
+    <div class="stack-row">
+      <div class="s-layer">AWS Cloud</div>
+      <div class="s-items">
+        <span class="s-item">ECS Fargate</span><span class="s-item">ALB</span>
+        <span class="s-item">ACM / HTTPS</span><span class="s-item">ECR</span>
+        <span class="s-item">CloudWatch</span><span class="s-item">Route 53</span><span class="s-item">IAM</span>
+      </div>
+    </div>
+    <div class="stack-row">
+      <div class="s-layer">Evaluation</div>
+      <div class="s-items">
+        <span class="s-item">RAGAS</span><span class="s-item">DeepEval</span>
+        <span class="s-item">W&amp;B / MLflow</span>
+        <span class="s-item">Gold-Set QA</span><span class="s-item">Distractor Testing</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══ TARGET ROLES ═══ -->
+<section id="roles-section">
+  <div class="sec-eyebrow">// target roles</div>
+  <h2 class="sec-title">Open to Opportunities</h2>
+  <p class="sec-sub">Targeting Senior / Staff AI Solutions Architect and AI4Science roles where chemistry domain depth and production engineering combine.</p>
+
+  <div class="roles-grid reveal">
+    <div class="role-card">
+      <div class="role-icon">🧬</div>
+      <div>
+        <h4>Senior AI Solutions Architect</h4>
+        <div class="role-org">Isomorphic Labs / Google DeepMind</div>
+        <div class="role-desc">Drug discovery AI platforms combining molecular ML and production engineering at scale.</div>
+      </div>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">🔬</div>
+      <div>
+        <h4>AI4Science Platform Engineer</h4>
+        <div class="role-org">Microsoft AI4Science</div>
+        <div class="role-desc">Scientific intelligence platforms bridging deep domain science and large-scale AI systems.</div>
+      </div>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">💊</div>
+      <div>
+        <h4>Computational AI Architect</h4>
+        <div class="role-org">Recursion · Insitro · TechBio</div>
+        <div class="role-desc">AI systems for drug discovery, ADMET prediction, and compound screening platforms.</div>
+      </div>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">🏛️</div>
+      <div>
+        <h4>Regulatory AI Architect</h4>
+        <div class="role-org">FDA Copilots · Pharma RegAffairs</div>
+        <div class="role-desc">AI copilots for regulatory intelligence synthesis and submission-readiness workflows.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══ DEPLOYMENT ═══ -->
+<section id="deploy">
+  <div class="sec-eyebrow">// live infrastructure</div>
+  <h2 class="sec-title">Production Deployed</h2>
+
+  <div class="deploy-card reveal">
+    <div>
+      <div class="deploy-domain">aiscientificlabs.com</div>
+      <div class="deploy-desc">All portfolio projects ship behind a custom domain with HTTPS, load balancing, and CloudWatch monitoring — not localhost demos. Multi-service ECS Fargate (FastAPI backend + Streamlit frontend) behind an Application Load Balancer with ACM-managed TLS and GoDaddy DNS validation.</div>
+    </div>
+    <div class="infra-list">
+      <div class="infra-item"><div class="i-dot"></div>ECS Fargate (multi-service)</div>
+      <div class="infra-item"><div class="i-dot"></div>Application Load Balancer</div>
+      <div class="infra-item"><div class="i-dot"></div>ACM TLS / HTTPS</div>
+      <div class="infra-item"><div class="i-dot"></div>Amazon ECR (Docker images)</div>
+      <div class="infra-item"><div class="i-dot"></div>CloudWatch Dashboards</div>
+      <div class="infra-item"><div class="i-dot"></div>Route 53 / GoDaddy DNS</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact">
+  <div class="contact-box reveal">
+    <h2>Let's build <span>AI for Science</span> together</h2>
+    <p>Open to Senior / Staff AI Solutions Architect roles at the intersection of computational chemistry, drug discovery, and production AI systems.</p>
+    <div class="contact-links">
+      <a class="c-link" href="mailto:hello@aiscientificlabs.com">✉ Email</a>
+      <a class="c-link" href="https://linkedin.com/in/" target="_blank">LinkedIn</a>
+      <a class="c-link" href="https://github.com/" target="_blank">GitHub</a>
+      <a class="c-link" href="https://aiscientificlabs.com" target="_blank">↗ aiscientificlabs.com</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /page-wrap -->
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="f-copy">© 2026 <span>aiscientificlabs.com</span> — AI for Science Portfolio</div>
+  <div class="f-right">Chemistry PhD × AI Architect × AWS</div>
+</footer>
+
+<!-- ══════════════════ SCRIPTS ══════════════════ -->
+<script>
+/* ── Animated molecule on hero card ── */
+(function(){
+  const canvas = document.getElementById('mol-canvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  function resize(){
+    const rect = canvas.parentElement.getBoundingClientRect();
+    canvas.width  = rect.width  || 420;
+    canvas.height = rect.height || 420;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  /* aspirin-like molecular graph */
+  const atoms = [
+    {x:.5,  y:.38, el:'C', c:'#00e5c0'},
+    {x:.57, y:.31, el:'C', c:'#00e5c0'},
+    {x:.67, y:.34, el:'C', c:'#00e5c0'},
+    {x:.69, y:.43, el:'C', c:'#00e5c0'},
+    {x:.62, y:.50, el:'C', c:'#00e5c0'},
+    {x:.52, y:.47, el:'C', c:'#00e5c0'},
+    {x:.40, y:.34, el:'O', c:'#4f8ef7'},
+    {x:.33, y:.41, el:'C', c:'#00e5c0'},
+    {x:.26, y:.34, el:'O', c:'#4f8ef7'},
+    {x:.33, y:.50, el:'O', c:'#4f8ef7'},
+    {x:.63, y:.60, el:'C', c:'#00e5c0'},
+    {x:.56, y:.68, el:'O', c:'#4f8ef7'},
+    {x:.71, y:.66, el:'O', c:'#4f8ef7'},
+    {x:.75, y:.27, el:'H', c:'#263044'},
+    {x:.55, y:.22, el:'H', c:'#263044'},
+  ];
+  const bonds=[[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[0,6],[6,7],[7,8],[7,9],[4,10],[10,11],[10,12],[2,13],[1,14]];
+
+  let t=0;
+  function draw(){
+    const W=canvas.width, H=canvas.height;
+    ctx.clearRect(0,0,W,H);
+    const angle = t * 0.008;
+    const cos=Math.cos(angle), sin=Math.sin(angle);
+    const cx=.5, cy=.5;
+
+    const pts = atoms.map(a=>{
+      const dx=a.x-cx, dy=a.y-cy;
+      return {
+        x:(cx + dx*cos - dy*sin*0.28)*W,
+        y:(cy + dx*sin*0.28 + dy*cos)*H,
+        el:a.el, c:a.c
+      };
+    });
+
+    /* bonds */
+    bonds.forEach(([i,j])=>{
+      ctx.beginPath();
+      ctx.moveTo(pts[i].x,pts[i].y);
+      ctx.lineTo(pts[j].x,pts[j].y);
+      ctx.strokeStyle='rgba(0,229,192,0.22)';
+      ctx.lineWidth=1.5;
+      ctx.stroke();
+    });
+
+    /* atoms */
+    pts.forEach(a=>{
+      const r = a.el==='H'?4 : a.el==='O'?7 : 9;
+      ctx.globalAlpha = a.el==='H'?0.35:0.9;
+      ctx.beginPath();
+      ctx.arc(a.x,a.y,r,0,Math.PI*2);
+      ctx.fillStyle=a.c;
+      ctx.fill();
+      ctx.globalAlpha=1;
+      if(a.el!=='H'){
+        ctx.fillStyle='#08090f';
+        ctx.font=`bold ${r}px "Space Mono",monospace`;
+        ctx.textAlign='center';
+        ctx.textBaseline='middle';
+        ctx.fillText(a.el,a.x,a.y);
+      }
+    });
+    t++;
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ── Scroll reveal + skill bar animation ── */
+(function(){
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+        e.target.querySelectorAll('.skill-fill[data-w]').forEach(b=>{
+          setTimeout(()=>{ b.style.width=b.dataset.w; },120);
+        });
+        obs.unobserve(e.target);
+      }
+    });
+  },{threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+})();
+</script>
+</body>
+</html>
