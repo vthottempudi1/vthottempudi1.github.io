@@ -105,3 +105,154 @@
 - **Projects 1 & 4** have real product-level competitors.
 - **Projects 2 & 3** have mostly component/infrastructure competition.
 - Your moat across all projects: **production-grade deployment, evidence grounding, and explicit confidence/contradiction handling** — not claimed uniquely by any of these repos.
+
+---
+
+## 12-Week Execution Plan (Projects 1–4)
+
+### Strategy
+
+- **Deep builds:** Project 1 (SEIP), Project 4 (Retrosynthesis)
+- **Scoped proofs:** Project 2 (Drug Discovery), Project 3 (Regulatory Affairs)
+
+### Weeks 1–4: Project 1 (SEIP) — Flagship
+
+#### Week 1 — Production MVP path
+
+**Deliverables**
+- Molecule input → resolver → ingestion → retrieval → cited report (end-to-end live)
+- Minimal deployed API/UI on AWS
+- Source list in output (PMID/DOI links)
+
+**Definition of Done (DoD)**
+- 10 live molecule queries run successfully
+- No uncited claims in output format
+
+#### Week 2 — Retrieval quality
+
+**Deliverables**
+- Hybrid retrieval (dense + BM25) + reranker
+- Metadata-aware filtering (year, section, retraction flag)
+
+**DoD**
+- Baseline vs hybrid comparison on 20 test queries
+- Retrieval precision report committed in repo
+
+#### Week 3 — Verifier + contradiction
+
+**Deliverables**
+- Contradiction/consensus module
+- Critic/verifier node with retry loop
+- Confidence language policy (strong/moderate/limited evidence)
+
+**DoD**
+- Planted contradiction test passes
+- Ungrounded claim rejection works in automated test
+
+#### Week 4 — Eval + reliability hardening
+
+**Deliverables**
+- Gold set (15–20 questions) + distractor/noise test harness
+- CloudWatch dashboards/alarms
+- README with architecture + boundaries
+
+**DoD**
+- Metrics page in repo (precision, citation accuracy, contradiction handling)
+- Deployed URL + uptime evidence
+
+### Weeks 5–8: Project 4 (Retrosynthesis) — Architecture Range Proof
+
+#### Week 5 — Data + template engine
+
+**Deliverables**
+- USPTO-50k preprocessing
+- Template extraction + application pipeline
+
+**DoD**
+- Can generate valid precursor candidates for sample targets
+
+#### Week 6 — Expansion policy model
+
+**Deliverables**
+- Train policy/ranker for precursor prioritization
+- Evaluation script for top-k single-step prediction
+
+**DoD**
+- Top-k metrics logged + reproducible run script
+
+#### Week 7 — MCTS multi-step planning
+
+**Deliverables**
+- MCTS controller + pruning strategy
+- Multi-step route generation
+
+**DoD**
+- Produces complete routes for benchmark subset
+
+#### Week 8 — Validation + deploy
+
+**Deliverables**
+- Round-trip check (forward model validation)
+- Basic route visualization + deployed API
+
+**DoD**
+- top-1/top-5/top-10 + round-trip metrics published
+- Demo endpoint live
+
+### Weeks 9–10: Project 2 (Drug Discovery) — Scoped Extension
+
+#### Week 9 — Domain config + sources
+
+**Deliverables**
+- Reuse SEIP core; swap in Drug Discovery config
+- Add structured metadata (target, indication, MoA, phase)
+
+**DoD**
+- 10 drug-discovery queries with grounded sources
+
+#### Week 10 — Decision support layer
+
+**Deliverables**
+- Binary advance/discard recommendation with rationale
+- Explicit preclinical vs clinical evidence separation
+
+**DoD**
+- Every recommendation links to supporting citations
+- “Insufficient evidence” fallback implemented
+
+### Weeks 11–12: Project 3 (Regulatory Affairs) — Scoped Extension
+
+#### Week 11 — Regulatory ingestion + temporal logic
+
+**Deliverables**
+- openFDA + FDA guidance ingestion
+- Version/superseded status checks in metadata
+
+**DoD**
+- Query can distinguish current vs superseded guidance
+
+#### Week 12 — Regulatory report + polish
+
+**Deliverables**
+- Guidance-change summary template
+- Submission-readiness checklist output
+- Final portfolio packaging across all 4 projects
+
+**DoD**
+- 8–10 regulatory benchmark questions pass grounding checks
+- Final comparison matrix + demo video links in master README
+
+### Weekly Cadence (Strict)
+
+- **Monday:** implement core feature
+- **Tuesday:** tests + edge cases
+- **Wednesday:** eval + metrics
+- **Thursday:** deploy + observability
+- **Friday:** README/docs/demo clip + backlog prune
+
+### Hard Rules (Critical)
+
+1. No new scope unless current week DoD is complete.
+2. Every project must have: live demo + eval table + failure mode examples.
+3. Prefer boring reliability over flashy extra features.
+4. Keep Projects 2 and 3 scoped to one high-value workflow each.
