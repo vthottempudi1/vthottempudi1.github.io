@@ -47,17 +47,6 @@ body {
   overflow-x: hidden;
 }
 
-/* visible focus styles for keyboard accessibility */
-a:focus-visible,
-button:focus-visible,
-[role="button"]:focus-visible,
-[tabindex]:focus-visible {
-  outline: 2px solid var(--teal);
-  outline-offset: 3px;
-  box-shadow: 0 0 0 4px rgba(0,229,192,0.18);
-  border-radius: 6px;
-}
-
 /* ══════════════════════════════════════════
    AMBIENT BACKGROUND — kept from your version
    subtle radial glow top-right
@@ -147,6 +136,23 @@ nav {
 @keyframes pulse {
   0%,100% { opacity: 1; transform: scale(1); }
   50%      { opacity: .5; transform: scale(.8); }
+}
+
+
+/* ══════════════════════════════════════════
+   ACCESSIBILITY — keyboard focus styles
+══════════════════════════════════════════ */
+:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(0,229,192,0.15);
+  border-radius: 4px;
+}
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(0,229,192,0.15);
 }
 
 /* ══════════════════════════════════════════
@@ -776,7 +782,7 @@ footer {
         <div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:var(--text3);font-family:var(--font-m);">Eval score</span><span style="color:var(--teal);font-family:var(--font-m);">0.97 faithfulness</span></div>
         <div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:var(--text3);font-family:var(--font-m);">Infra</span><span style="color:var(--text2);font-family:var(--font-m);">AWS ECS Fargate</span></div>
       </div>
-      <a href="https://api.aiscientificlabs.com" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:rgba(0,229,192,.1);border:1px solid rgba(0,229,192,.3);color:var(--teal);padding:8px 20px;border-radius:6px;font-size:12px;font-family:var(--font-d);font-weight:600;text-decoration:none;margin-top:6px;">↗ View Live Demo</a>
+      <a href="https://api.aiscientificlabs.com" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;background:rgba(0,229,192,.1);border:1px solid rgba(0,229,192,.3);color:var(--teal);padding:8px 20px;border-radius:6px;font-size:12px;font-family:var(--font-d);font-weight:600;text-decoration:none;margin-top:6px;">↗ View Live Demo</a>
     </div>
   </div>
 </section>
@@ -786,7 +792,7 @@ footer {
 <section id="projects">
   <div class="sec-eyebrow">// portfolio</div>
   <h2 class="sec-title">AI Projects</h2>
-  <p class="sec-sub">Production-deployed and in-build projects — each evaluated rigorously and shipped on AWS infrastructure.</p>
+  <p class="sec-sub">Two flagship projects across two clouds and two architectural patterns — Enterprise RAG on AWS and multi-agent clinical intelligence on GCP.</p>
 
   <div class="proj-grid reveal">
 
@@ -795,7 +801,7 @@ footer {
       <span class="p-status s-live">● LIVE</span>
       <div class="p-badge b-blue">🤖 Enterprise RAG · IT Operations</div>
       <h3>Enterprise Advanced RAG — Kubernetes IT-Operations Copilot</h3>
-      <p>Production-deployed enterprise RAG system for Kubernetes IT operations. Hybrid retrieval with cross-encoder reranking, CRAG, HyDE, Self-RAG reflection, Text-to-SQL with human-in-the-loop approval, 9-layer guardrails, sqlglot safety validation, semantic caching, and admin observability — all in one production workflow. Auto/Manual experience modes with preset query library. Backend v0.1.6 live at api.aiscientificlabs.com.</p>
+      <p>Production-deployed enterprise RAG system for Kubernetes IT operations. Hybrid retrieval with cross-encoder reranking, CRAG, HyDE, Self-RAG reflection, Text-to-SQL with human-in-the-loop approval, 9-layer guardrails, sqlglot safety validation, semantic caching, and admin observability — all in one production workflow. Auto/Manual experience modes with preset query library.</p>
       <div class="p-stack">
         <span class="p-tag">Hybrid + Rerank</span><span class="p-tag">CRAG</span>
         <span class="p-tag">HyDE</span><span class="p-tag">Self-RAG</span>
@@ -804,26 +810,58 @@ footer {
         <span class="p-tag">FastAPI</span><span class="p-tag">AWS ECS Fargate</span>
       </div>
       <div class="p-links">
-        <a class="p-link" href="https://api.aiscientificlabs.com" target="_blank">↗ Live Demo</a>
+        <a class="p-link" href="https://api.aiscientificlabs.com" target="_blank" rel="noopener noreferrer">↗ Live Demo</a>
         <a class="p-link" href="#">⊞ GitHub</a>
         <a class="p-link" href="#">📄 Write-up</a>
       </div>
     </div>
 
-    <!-- PROJECT 2: Multi-Agent System -->
-    <div class="proj-card wide">
+    <!-- PROJECT 2: Multi-Agent Clinical Trial Intelligence Engine -->
+    <div class="proj-card wide" style="background: linear-gradient(135deg, var(--bg2) 60%, rgba(167,139,250,.04));">
       <span class="p-status s-build">◌ IN BUILD</span>
-      <div class="p-badge b-teal">🤖 Agentic AI · Multi-Agent</div>
-      <h3>Multi-Agent Research &amp; Analysis System</h3>
-      <p>LangGraph-orchestrated multi-agent system for deep research and structured evidence synthesis. Specialized agents for retrieval, reasoning, verification, and report generation — with a Critic/Verifier node, CRAG retry loop, and citation-grounded outputs. Designed for enterprise knowledge workflows requiring auditability and traceability.</p>
+      <div class="p-badge b-violet">🧬 Multi-Agent · Clinical Intelligence</div>
+      <h3>Multi-Agent Clinical Trial Intelligence Engine</h3>
+      <p>
+        Supervisor-orchestrated system of 6 specialist agents that autonomously audit 400K+ ClinicalTrials.gov studies for broken promises, missing results, sponsor credibility, cross-study patterns, safety gaps, and timeline deviations.
+        Three-tier LangMem memory (Episodic · Procedural · Semantic) persists knowledge across sessions — human rejections permanently update procedural memory so agents learn from every review cycle.
+        Per-agent HITL confidence thresholds (0.55–0.70) gate low-confidence signals to a human review queue with a learning loop that injects new rules back into agent context. Deployed serverless on GCP Cloud Run.
+      </p>
       <div class="p-stack">
-        <span class="p-tag">LangGraph</span><span class="p-tag">Multi-Agent</span><span class="p-tag">Qdrant</span>
-        <span class="p-tag">FastAPI</span><span class="p-tag">CRAG</span>
-        <span class="p-tag">AWS ECS Fargate</span><span class="p-tag">Streamlit</span>
+        <span class="p-tag">LangGraph</span>
+        <span class="p-tag">Supervisor Agent</span>
+        <span class="p-tag">LangMem · 3-tier Memory</span>
+        <span class="p-tag">6 Specialist Agents</span>
+        <span class="p-tag">Human-in-the-Loop</span>
+        <span class="p-tag">FastAPI</span>
+        <span class="p-tag">GCP Cloud Run</span>
+        <span class="p-tag">Cloud SQL · PostgreSQL</span>
+        <span class="p-tag">ClinicalTrials.gov API</span>
+        <span class="p-tag">PubMed eUtils API</span>
+        <span class="p-tag">OpenAI GPT-4o</span>
+        <span class="p-tag">LangSmith</span>
       </div>
       <div class="p-links">
-        <a class="p-link" href="#">⊞ GitHub</a>
-        <a class="p-link" href="#">📄 Write-up</a>
+        <a class="p-link" href="#" rel="noopener noreferrer">⊞ GitHub</a>
+        <a class="p-link" href="#" rel="noopener noreferrer">📄 Architecture</a>
+      </div>
+
+      <!-- Key differentiators inline -->
+      <div style="margin-top:18px;padding-top:16px;border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
+        <div>
+          <div style="font-family:var(--font-m);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:5px;">Data scale</div>
+          <div style="font-family:var(--font-d);font-size:14px;font-weight:700;color:var(--violet);">400K+</div>
+          <div style="font-size:11px;color:var(--text2);">studies audited</div>
+        </div>
+        <div>
+          <div style="font-family:var(--font-m);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:5px;">Agents</div>
+          <div style="font-family:var(--font-d);font-size:14px;font-weight:700;color:var(--violet);">6 specialist</div>
+          <div style="font-size:11px;color:var(--text2);">parallel execution</div>
+        </div>
+        <div>
+          <div style="font-family:var(--font-m);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:5px;">Cloud</div>
+          <div style="font-family:var(--font-d);font-size:14px;font-weight:700;color:var(--violet);">GCP</div>
+          <div style="font-size:11px;color:var(--text2);">serverless · $35–65/mo</div>
+        </div>
       </div>
     </div>
 
@@ -900,13 +938,12 @@ footer {
   <div class="blog-grid reveal">
 
     <div class="blog-card">
-      <span class="blog-status">COMING SOON</span>
       <span class="blog-tag">🤖 RAG · Architecture</span>
-      <div class="blog-title">Building Enterprise RAG with 9-Layer Guardrails</div>
-      <div class="blog-excerpt">How I designed a production-grade RAG system for Kubernetes IT operations — covering hybrid retrieval, intent routing, CRAG, HyDE, Self-RAG, and nine sequential security checkpoints that run on every request.</div>
+      <div class="blog-title">Building an Enterprise-Grade Advanced RAG System: What It Took Beyond the Demo</div>
+      <div class="blog-excerpt">How I designed a production-grade RAG system — covering hybrid retrieval, intent routing, CRAG, HyDE, Self-RAG, 9-layer guardrails, safe Text-to-SQL with human approval, and an evaluation framework that cannot hide failure.</div>
       <div class="blog-meta">
-        <span class="blog-date">2025 · Upcoming</span>
-        <span class="blog-read">~12 min read</span>
+        <span class="blog-date">2026 · 15 min read</span>
+        <span class="blog-read" style="color:var(--teal);">↗ Read</span>
       </div>
     </div>
 
@@ -916,7 +953,7 @@ footer {
       <div class="blog-title">RAGAS Evaluation: Making LLM Quality Actually Measurable</div>
       <div class="blog-excerpt">Why high aggregate scores can hide serious quality failures — and how I built an evaluation harness with deterministic gates, sealed holdout sets, impossible-score guards, and per-question thresholds that cannot be gamed.</div>
       <div class="blog-meta">
-        <span class="blog-date">2025 · Upcoming</span>
+        <span class="blog-date">2026 · Upcoming</span>
         <span class="blog-read">~10 min read</span>
       </div>
     </div>
@@ -927,7 +964,7 @@ footer {
       <div class="blog-title">Text-to-SQL with Human-in-the-Loop Approval</div>
       <div class="blog-excerpt">Generated SQL is untrusted code. A walkthrough of the full safety pipeline — schema-scoped generation, sqlglot AST validation, read-only bounds, stale-approval rejection, and human approval — and why each layer matters.</div>
       <div class="blog-meta">
-        <span class="blog-date">2025 · Upcoming</span>
+        <span class="blog-date">2026 · Upcoming</span>
         <span class="blog-read">~8 min read</span>
       </div>
     </div>
