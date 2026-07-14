@@ -24,7 +24,7 @@
 
   --text:     #edf2f7;
   --text2:    #8fa3bf;
-  --text3:    #3d5166;
+  --text3:    #6f8198;
 
   --font-d: 'Space Grotesk', sans-serif;
   --font-m: 'Space Mono', monospace;
@@ -45,6 +45,17 @@ body {
   font-size: 15px;
   line-height: 1.6;
   overflow-x: hidden;
+}
+
+/* visible focus styles for keyboard accessibility */
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(0,229,192,0.18);
+  border-radius: 6px;
 }
 
 /* ══════════════════════════════════════════
@@ -437,7 +448,7 @@ h2.sec-title {
   font-size: 12px;
   font-weight: 600;
   text-decoration: none;
-  color: var(--text3);
+  color: var(--text2);
   font-family: var(--font-d);
   transition: color .2s;
   display: flex;
@@ -1018,9 +1029,9 @@ footer {
     <p>Got an interesting AI architecture challenge? Let's talk.</p>
     <div class="contact-links">
       <a class="c-link" href="mailto:hello@aiscientificlabs.com">✉ Email</a>
-      <a class="c-link" href="https://linkedin.com/in/" target="_blank">LinkedIn</a>
-      <a class="c-link" href="https://github.com/" target="_blank">GitHub</a>
-      <a class="c-link" href="https://aiscientificlabs.com" target="_blank">↗ aiscientificlabs.com</a>
+      <a class="c-link" href="https://linkedin.com/in/vthottempudi1" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a class="c-link" href="https://github.com/vthottempudi1" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a class="c-link" href="https://aiscientificlabs.com" target="_blank" rel="noopener noreferrer">↗ aiscientificlabs.com</a>
     </div>
   </div>
 </section>
